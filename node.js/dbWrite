@@ -1,0 +1,2 @@
+#!/bin/bash
+mongo booksurf --eval "db.temp.find().forEach(printjson)" | grep -v "_id" | awk 'NR > 2 {gsub("{","<tr>"); gsub("}","</td></tr>"); gsub("\t\"title\" : \"","\">"); gsub("\"url\" : \"", "<td><a target=\"_blank\" href=\""); gsub("\"price\" : ", "</a></td><td>"); gsub("\",", ""); gsub("\"\n","</td>"); gsub("\"Audiobook\"","Audiobook"); gsub("\t",""); print $0}' | tr -d "\n"
